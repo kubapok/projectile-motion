@@ -1,20 +1,26 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-import math
+import math, sys
 
 #zmienne
+
+
+angle = math.radians(int(sys.argv[1]))
+
+
 r = 0.2
 kappa = 0.45 *np.pi * r*r * 0.6
 m = 0.3
 g = 9.81
+v = 30
 t = 0.05
 
 #inicjalizacja
 x = [0,]
 y = [0,]
-vx = [10,]
-vy = [30,]
+vx = [v*math.cos(angle),]
+vy = [v*math.sin(angle),]
 
 #kolejne iteracje
 while not y[-1] < 0:
@@ -31,8 +37,9 @@ def animate(t):
 
 fig, ax = plt.subplots()
 
-ax.set_xlim(0, int(1.4*x[-1]))
-ax.set_ylim(0, int(1.4*max(y)))
+scale_len = int(1.4 * max (x + y))
+ax.set_xlim(0, scale_len)
+ax.set_ylim(0, scale_len)
 
 ani = animation.FuncAnimation(fig, animate, interval=80, blit=True)
 plt.show()
